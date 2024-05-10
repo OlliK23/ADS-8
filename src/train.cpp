@@ -4,9 +4,9 @@ Train::Train() : first(nullptr), countOp(0) {}
 
 Train::~Train() {
     if (first != nullptr) {
-        Cage *current = first->next;
+        Cage* current = first->next;
         while (current != first) {
-            Cage *next = current->next;
+            Cage* next = current->next;
             delete current;
             current = next;
         }
@@ -15,12 +15,12 @@ Train::~Train() {
 }
 
 void Train::addCage(bool light) {
-    Cage *newCage = new Cage(light);
+    Cage* newCage = new Cage(light);
     if (first == nullptr) {
         first = newCage;
         first->next = first->prev = first;
     } else {
-        Cage *last = first->prev;
+        Cage* last = first->prev;
         last->next = newCage;
         newCage->prev = last;
         newCage->next = first;
@@ -30,8 +30,9 @@ void Train::addCage(bool light) {
 
 int Train::getLength() {
     if (first == nullptr) {
-        return 0; }
-    Cage *current = first;
+        return 0;
+    }
+    Cage* current = first;
     bool initialState = current->light;
     int length = 1;
     current->light = !initialState;
@@ -45,7 +46,7 @@ int Train::getLength() {
             current->light = !initialState;
         }
     }
-    Cage *reset = first;
+    Cage* reset = first;
     for (int i = 0; i < length; ++i) {
         reset->light = initialState;
         reset = reset->next;
