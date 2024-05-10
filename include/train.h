@@ -8,7 +8,10 @@ class Train {
         bool light;
         Cage *next;
         Cage *prev;
-        Cage(bool lightStatus) : light(lightStatus), next(nullptr), prev(nullptr) {}
+        Cage(bool lightStatus){
+         light = lightStatus;
+         next = nullptr;
+         prev = nullptr;
     };
 
     Cage *first;
