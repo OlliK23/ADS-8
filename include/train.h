@@ -8,11 +8,14 @@ class Train {
     bool light;
     Cage *next;
     Cage *prev;
-    explicit Cage(bool lightStatus) : light(lightStatus), next(nullptr), prev(nullptr) {}
-    };
+
+    explicit Cage(bool lightStatus)
+      : light(lightStatus), next(nullptr), prev(nullptr) {}
   };
+
   int countOp;
   Cage *first;
+
  public:
   Train();
   ~Train();
