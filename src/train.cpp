@@ -30,24 +30,25 @@ void Train::addCage(bool light) {
 
 int Train::getLength() {
     if (first == nullptr) {
-      return 0; }
-
-    int length = 1;
+        return 0; }
     Cage *current = first;
-    first->light = true;
+    bool initialState = current->light;
+    int length = 1;
+    current->light = !initialState;
     while (true) {
         current = current->next;
         countOp++;
-        if (current->light == true) {
+        if (current->light != initialState) {
             break;
         } else {
-            current->light = true;
             length++;
+            current->light = !initialState;
         }
     }
+    Cage *reset = first;
     for (int i = 0; i < length; ++i) {
-        current = current->next;
-        current->light = false;
+        reset->light = initialState;
+        reset = reset->next;
     }
     return length;
 }
