@@ -29,12 +29,12 @@ void Train::addCage(bool light) {
 }
 
 int Train::getLength() {
-    if (first == nullptr){
+    if (first == nullptr) {
       return 0; }
 
     int length = 1;
     Cage *current = first;
-    first->light = true; 
+    first->light = true;
     while (true) {
         current = current->next;
         countOp++;
