@@ -6,7 +6,7 @@ Train::Train() {
 }
 
 void Train::addCage(bool l) {
-    Cage* newCage = new Cage;
+    Cage* newCage = new Cage(l, nullptr, nullptr);
     newCage->light = l;
     if (first == nullptr) {
         first = newCage;
