@@ -13,12 +13,12 @@ class Train {
         next = nullptr;
         prev = nullptr;
     }
+  };
   int countOp;
   Cage *first;
 
  public:
   Train();
-  ~Train();
   void addCage(bool light);
   int getLength();
   int getOpCount();
