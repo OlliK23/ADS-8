@@ -1,57 +1,41 @@
 // Copyright 2021 NNTU-CS
 #include "train.h"
-Train::Train() : first(nullptr), countOp(0) {}
-
-Train::~Train() {
-    if (first != nullptr) {
-        Cage* current = first->next;
-        while (current != first) {
-            Cage* next = current->next;
-            delete current;
-            current = next;
-        }
-        delete first;
-    }
+Train::Train() {
+    first = nullptr;
+    countOp = 0;
 }
 
-void Train::addCage(bool light) {
-    Cage* newCage = new Cage(light);
+void Train::addCage(bool l) {
+    Cage* newCage = new Cage;
+    newCage->light = l;
     if (first == nullptr) {
         first = newCage;
-        first->next = first->prev = first;
+        first->next = first;
+        first->prev = first;
     } else {
-        Cage* last = first->prev;
-        last->next = newCage;
-        newCage->prev = last;
         newCage->next = first;
+        newCage->prev = first->prev;
+        first->prev->next = newCage;
         first->prev = newCage;
     }
 }
 
 int Train::getLength() {
-    if (first == nullptr) {
-        return 0;
-    }
-    Cage* current = first;
-    bool initialState = current->light;
-    int length = 1;
-    current->light = !initialState;
-    while (true) {
-        current = current->next;
-        countOp++;
-        if (current->light != initialState) {
-            break;
-        } else {
-            length++;
-            current->light = !initialState;
+    if (first == nullptr) return 0;
+    int l = 0;
+    Cage* currentCage = first;
+    do {
+        currentCage->light = true;
+        l++;
+        currentCage = currentCage->next;
+        while (!currentCage->light) {
+            currentCage = currentCage->next;
+            l++;
         }
-    }
-    Cage* reset = first;
-    for (int i = 0; i < length; ++i) {
-        reset->light = initialState;
-        reset = reset->next;
-    }
-    return length;
+        currentCage->light = false;
+        countOp += l * 2;
+    } while (currentCage != first);
+    return l;
 }
 
 int Train::getOpCount() {
